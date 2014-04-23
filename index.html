@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>dog</title>
+    <meta name=viewport content="width=device-width, initial-scale=1, user-scalable=no">
+    <style type="text/css">
+        html, body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-size: 14px;
+        }
+        .dog {
+            text-indent: -1000px;
+            position: absolute;
+            top: 50%; left: 50%;
+        }
+        .dog:after {
+            content: ' ';
+            display: block;
+            background: url(dog.png) no-repeat 0 0;
+            background-size: 100% 100%;
+            width: 108px; height: 179px;
+            -webkit-transform:translate3d(-50%,-50%,0);
+        }
+        .shake {
+            -webkit-animation: shake .5s 0 linear infinite;
+        }
+        @-webkit-keyframes shake{
+            0% {
+                -webkit-transform: scale3d(1,1,1);
+            }
+            20% {
+                -webkit-transform: scale3d(.8,1,1);
+            }
+            50% {
+                -webkit-transform: scale3d(1.1,.7,1);
+            }
+            70% {
+                -webkit-transform: scale3d(.9,1.2,1);
+            }
+            100% {
+                -webkit-transform: scale3d(1,1,1);
+            }
+        }
+        .main {
+            width: 100%;
+            height: 100%;
+        }
+        body.init .main {
+            -webkit-filter : blur(2px);
+        }
+        .loading {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            top: 0; left: 0;
+            display: none;
+            -webkit-box-orient: horizontal;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            text-shadow: 0 1px 1px #fff;
+            font-weight: bold;
+        }
+        body.init .loading {
+            display: -webkit-box;
+        }
+    </style>
+</head>
+<body class="init">
+    <div class="main">
+        <div class="dog">小狗</div>
+    </div>
+    <div class="loading">加载中...</div>
+    <script type="text/javascript" src="http://code.createjs.com/soundjs-0.5.2.min.js"></script>
+    <script type="text/javascript" src="http://code.createjs.com/preloadjs-0.4.1.min.js"></script>
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/fastclick.js"></script>
+    <script type="text/javascript" src="js/hammer.js"></script>
+    <script type="text/javascript">
+        (function(){
+            var queue = new createjs.LoadQueue();
+            var manifest = [
+                { id: 'dog.name', src: __uri('dog.mp3') },
+                { id: 'dog.noic', src: __uri('dog-wang.mp3') }
+            ];
+            queue.installPlugin(createjs.Sound);
+            queue.on('complete', handleComplete);
+            queue.loadManifest(manifest);
+            function handleComplete(){
+                var $dog = $('.dog');
+                var wangging = false;
+                document.body.className = '';
+                var hammer = Hammer(document.body);
+                hammer.on('touch', function(){
+                    createjs.Sound.play('dog.name');
+                });
+                hammer.on('hold', function(){
+                    setTimeout(function(){
+                        $dog.addClass('shake');
+                        createjs.Sound.play('dog.noic');
+                        wangging = true;
+                    }, 500);
+                });
+                hammer.on('release', function(){
+                    $dog.removeClass('shake');
+                    if(wangging) {
+                        createjs.Sound.stop();
+                        wangging = false;
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
