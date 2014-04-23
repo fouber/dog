@@ -101,7 +101,7 @@
                 hammer.on('hold', function(){
                     setTimeout(function(){
                         $dog.addClass('shake');
-                        createjs.Sound.play('dog.noic', createjs.Sound.INTERRUPT_ANY, 0, 0, -1);
+                        createjs.Sound.play('dog.noic', createjs.Sound.INTERRUPT_ANY, 200, 0, -1);
                         wangging = true;
                     }, 500);
                 });
