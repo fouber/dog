@@ -20,7 +20,7 @@
         .dog:after {
             content: ' ';
             display: block;
-            background: url(/src/dog_4f41afe.png) no-repeat 0 0;
+            background: url(dog.png) no-repeat 0 0;
             background-size: 100% 100%;
             width: 108px; height: 179px;
             -webkit-transform:translate3d(-50%,-50%,0);
@@ -77,15 +77,15 @@
     <div class="loading">加载中...</div>
     <script type="text/javascript" src="http://code.createjs.com/soundjs-0.5.2.min.js"></script>
     <script type="text/javascript" src="http://code.createjs.com/preloadjs-0.4.1.min.js"></script>
-    <script type="text/javascript" src="/src/js/zepto.min_2e66d54.js"></script>
-    <script type="text/javascript" src="/src/js/fastclick_26f6188.js"></script>
-    <script type="text/javascript" src="/src/js/hammer_9e023db.js"></script>
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/fastclick.js"></script>
+    <script type="text/javascript" src="js/hammer.js"></script>
     <script type="text/javascript">
         (function(){
             var queue = new createjs.LoadQueue();
             var manifest = [
-                { id: 'dog.name', src: '/src/dog.mp3' },
-                { id: 'dog.noic', src: '/src/dog-wang.mp3' }
+                { id: 'dog.name', src: __uri('dog.mp3') },
+                { id: 'dog.noic', src: __uri('dog-wang.mp3') }
             ];
             queue.installPlugin(createjs.Sound);
             queue.on('complete', handleComplete);
