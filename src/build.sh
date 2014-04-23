@@ -1,1 +1,0 @@
-fis release -comd `pwd`/../
