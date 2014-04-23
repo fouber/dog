@@ -96,7 +96,7 @@
                 document.body.className = '';
                 var hammer = Hammer(document.body);
                 hammer.on('touch', function(){
-                    createjs.Sound.play('dog.name');
+                    createjs.Sound.play('dog.name', createjs.Sound.INTERRUPT_LATE);
                 });
                 hammer.on('hold', function(){
                     setTimeout(function(){
